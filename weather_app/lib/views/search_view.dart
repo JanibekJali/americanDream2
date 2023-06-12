@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
-class SearchView extends StatefulWidget {
-  const SearchView({Key? key}) : super(key: key);
-
-  @override
-  _SearchViewState createState() => _SearchViewState();
-}
-
-class _SearchViewState extends State<SearchView> {
+class SearchView extends StatelessWidget {
+  SearchView({Key? key}) : super(key: key);
+  TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +20,7 @@ class _SearchViewState extends State<SearchView> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: TextField(
+              controller: controller,
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white, fontSize: 25),
               keyboardType: TextInputType.text,
@@ -31,7 +28,7 @@ class _SearchViewState extends State<SearchView> {
                 suffixIcon: IconButton(
                   onPressed: () {
                     FocusScope.of(context).unfocus();
-                    Navigator.pop(context);
+                    Navigator.pop(context, controller.text);
                   },
                   icon: Icon(
                     Icons.navigate_next_outlined,
